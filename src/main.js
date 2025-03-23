@@ -38,16 +38,17 @@ const root = document.getElementById("root");
 
 const render = () => {
   root.innerHTML = App();
-
-  document.querySelectorAll("a").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      navigateTo(e.target.href.replace(location.origin, ""));
-    });
-  });
 };
 
 window.addEventListener("popstate", render);
+
+root.addEventListener("click", (e) => {
+  if (e.target && e.target.nodeName == "A") {
+    e.preventDefault();
+    navigateTo(e.target.href.replace(location.origin, ""));
+  }
+});
+
 root.addEventListener("click", (e) => {
   if (e.target && e.target.id === "logout") {
     localStorage.removeItem("user");
