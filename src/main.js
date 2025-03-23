@@ -1,18 +1,43 @@
+const state = {
+  loggedIn: false,
+};
+
+const Header = ({ loggedIn }) => {
+  const getNavClassName = (path) =>
+    location.pathname === path ? "text-blue-600" : "text-gray-600";
+
+  const navContent = loggedIn
+    ? `
+      <li><a href="/profile" class="${getNavClassName("/profile")}">프로필</a></li>
+      <li><a href="#">로그아웃</a></li>
+  `
+    : `
+      <li><a href="/login" class="${getNavClassName("/login")}">로그인</a></li>
+    `;
+
+  return `
+  <header class="bg-blue-600 text-white p-4 sticky top-0">
+    <h1 class="text-2xl font-bold">항해플러스</h1>
+  </header>
+  <nav class="bg-white shadow-md p-2 sticky top-14">
+    <ul class="flex justify-around">
+      <li><a href="/" class="${getNavClassName("/")}">홈</a></li>
+      ${navContent}
+    </ul>
+  </nav>
+`;
+};
+
+const Footer = () => `
+  <footer class="bg-gray-200 p-4 text-center">
+    <p>&copy; 2024 항해플러스. All rights reserved.</p>
+  </footer>
+`;
+
 const MainPage = () => `
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-      <header class="bg-blue-600 text-white p-4 sticky top-0">
-        <h1 class="text-2xl font-bold">항해플러스</h1>
-      </header>
-
-      <nav class="bg-white shadow-md p-2 sticky top-14">
-        <ul class="flex justify-around">
-          <li><a href="/" class="text-blue-600">홈</a></li>
-          <li><a href="/profile" class="text-gray-600">프로필</a></li>
-          <li><a href="#" class="text-gray-600">로그아웃</a></li>
-        </ul>
-      </nav>
-
+    ${Header({ loggedIn: state.loggedIn })}
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
           <textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -102,10 +127,7 @@ const MainPage = () => `
           </div>
         </div>
       </main>
-
-      <footer class="bg-gray-200 p-4 text-center">
-        <p>&copy; 2024 항해플러스. All rights reserved.</p>
-      </footer>
+    ${Footer()}
     </div>
   </div>
 `;
@@ -154,17 +176,7 @@ const ProfilePage = () => `
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        <header class="bg-blue-600 text-white p-4 sticky top-0">
-          <h1 class="text-2xl font-bold">항해플러스</h1>
-        </header>
-
-        <nav class="bg-white shadow-md p-2 sticky top-14">
-          <ul class="flex justify-around">
-            <li><a href="/" class="text-gray-600">홈</a></li>
-            <li><a href="/profile" class="text-blue-600">프로필</a></li>
-            <li><a href="#" class="text-gray-600">로그아웃</a></li>
-          </ul>
-        </nav>
+      ${Header({ loggedIn: state.loggedIn })}
 
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
@@ -225,17 +237,53 @@ const ProfilePage = () => `
           </div>
         </main>
 
-        <footer class="bg-gray-200 p-4 text-center">
-          <p>&copy; 2024 항해플러스. All rights reserved.</p>
-        </footer>
+        ${Footer()}
       </div>
     </div>
   </div>
 `;
 
-document.body.innerHTML = `
-  ${MainPage()}
-  ${ProfilePage()}
-  ${LoginPage()}
-  ${ErrorPage()}
-`;
+const routes = [
+  { path: "/", component: MainPage },
+  { path: "/login", component: LoginPage },
+  { path: "/profile", component: ProfilePage, requiresAuth: true },
+];
+
+const navigateTo = (path) => {
+  history.pushState(null, "", path);
+  render();
+};
+
+const App = () => {
+  const { pathname } = location;
+  const route = routes.find((route) => route.path === pathname);
+
+  if (!route) return ErrorPage();
+
+  if (route.requiresAuth && !state.loggedIn) {
+    history.replaceState(null, "", "/login");
+    return LoginPage();
+  }
+
+  if (pathname === "/login" && state.loggedIn) {
+    history.replaceState(null, "", "/");
+    return MainPage();
+  }
+
+  return route.component();
+};
+
+const render = () => {
+  document.body.innerHTML = App();
+
+  document.querySelectorAll("a").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      navigateTo(e.target.href.replace(location.origin, ""));
+    });
+  });
+};
+
+window.addEventListener("popstate", render);
+
+render();
