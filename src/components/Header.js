@@ -1,4 +1,8 @@
-export const Header = ({ loggedIn }) => {
+import { state } from "../store/state.js";
+
+export const Header = () => {
+  const loggedIn = state.loggedIn;
+
   const getNavClassName = (path) =>
     location.pathname === path ? "text-blue-600 font-bold" : "text-gray-600";
 

@@ -50,8 +50,7 @@ root.addEventListener("click", (e) => {
 
 root.addEventListener("click", (e) => {
   if (e.target && e.target.id === "logout") {
-    localStorage.removeItem("user");
-    state.loggedIn = false;
+    state.logout();
     history.pushState(null, "", "/login");
     render();
   }
@@ -61,11 +60,7 @@ root.addEventListener("submit", (e) => {
     e.preventDefault();
     const username = e.target.querySelector("#username").value;
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ username, email: "", bio: "" }),
-    );
-    state.loggedIn = true;
+    state.setUser({ username, email: "", bio: "" });
     history.pushState(null, "", "/");
     render();
   }
@@ -76,7 +71,7 @@ root.addEventListener("submit", (e) => {
     const email = e.target.querySelector("#email").value;
     const bio = e.target.querySelector("#bio").value;
 
-    localStorage.setItem("user", JSON.stringify({ username, email, bio }));
+    state.setUser({ username, email, bio });
     render();
   }
 });
