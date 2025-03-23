@@ -57,16 +57,28 @@ root.addEventListener("click", (e) => {
   }
 });
 root.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const username = e.target.querySelector("#username").value;
+  if (e.target && e.target.id === "login-form") {
+    e.preventDefault();
+    const username = e.target.querySelector("#username").value;
 
-  localStorage.setItem(
-    "user",
-    JSON.stringify({ username, email: "", bio: "" }),
-  );
-  state.loggedIn = true;
-  history.pushState(null, "", "/");
-  render();
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ username, email: "", bio: "" }),
+    );
+    state.loggedIn = true;
+    history.pushState(null, "", "/");
+    render();
+  }
+
+  if (e.target && e.target.id === "profile-form") {
+    e.preventDefault();
+    const username = e.target.querySelector("#username").value;
+    const email = e.target.querySelector("#email").value;
+    const bio = e.target.querySelector("#bio").value;
+
+    localStorage.setItem("user", JSON.stringify({ username, email, bio }));
+    render();
+  }
 });
 
 render();
