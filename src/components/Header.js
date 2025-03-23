@@ -1,6 +1,6 @@
 export const Header = ({ loggedIn }) => {
   const getNavClassName = (path) =>
-    location.pathname === path ? "text-blue-600" : "text-gray-600";
+    location.pathname === path ? "text-blue-600 font-bold" : "text-gray-600";
 
   const navContent = loggedIn
     ? `
