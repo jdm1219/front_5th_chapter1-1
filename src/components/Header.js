@@ -1,4 +1,5 @@
 import { state } from "../store/state.js";
+import { ROUTE_PATHS } from "../router/routes.js";
 
 export const Header = () => {
   const loggedIn = state.loggedIn;
@@ -8,11 +9,11 @@ export const Header = () => {
 
   const navContent = loggedIn
     ? `
-      <li><a href="/profile" class="${getNavClassName("/profile")}">프로필</a></li>
+      <li><a href="${ROUTE_PATHS.PROFILE}" class="${getNavClassName(ROUTE_PATHS.PROFILE)}">프로필</a></li>
       <li><a id="logout" href="#">로그아웃</a></li>
   `
     : `
-      <li><a href="/login" class="${getNavClassName("/login")}">로그인</a></li>
+      <li><a href="${ROUTE_PATHS.LOGIN}" class="${getNavClassName(ROUTE_PATHS.LOGIN)}">로그인</a></li>
     `;
 
   return `
@@ -21,7 +22,7 @@ export const Header = () => {
   </header>
   <nav class="bg-white shadow-md p-2 sticky top-14">
     <ul class="flex justify-around">
-      <li><a href="/" class="${getNavClassName("/")}">홈</a></li>
+      <li><a href="${ROUTE_PATHS.MAIN}" class="${getNavClassName(ROUTE_PATHS.MAIN)}">홈</a></li>
       ${navContent}
     </ul>
   </nav>

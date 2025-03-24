@@ -1,59 +1,34 @@
-import { MainPage } from "./pages/MainPage.js";
-import { LoginPage } from "./pages/LoginPage.js";
-import { ProfilePage } from "./pages/ProfilePage.js";
-import { ErrorPage } from "./pages/ErrorPage.js";
 import { state } from "./store/state.js";
+import { createHistoryRouter } from "./router/router.js";
+import { ROUTE_PATHS, routes } from "./router/routes.js";
 
-const routes = [
-  { path: "/", component: MainPage },
-  { path: "/login", component: LoginPage },
-  { path: "/profile", component: ProfilePage, requiresAuth: true },
-];
+const root = document.body.querySelector("#root");
 
-const navigateTo = (path) => {
-  history.pushState(null, "", path);
-  render();
-};
-
-const App = () => {
-  const { pathname } = location;
-  const route = routes.find((route) => route.path === pathname);
-
-  if (!route) return ErrorPage();
-
-  if (route.requiresAuth && !state.loggedIn) {
-    history.replaceState(null, "", "/login");
-    return LoginPage();
-  }
-
-  if (pathname === "/login" && state.loggedIn) {
-    history.replaceState(null, "", "/");
-    return MainPage();
-  }
-
-  return route.component();
-};
-
-const root = document.getElementById("root");
-
-const render = () => {
-  root.innerHTML = App();
-};
-
-window.addEventListener("popstate", render);
+const router = createHistoryRouter({
+  mount: root,
+  routes,
+  beforeEnter: (to, next) => {
+    if (to.requiresAuth && !state.loggedIn) {
+      next(ROUTE_PATHS.LOGIN);
+    } else if (to.path === ROUTE_PATHS.LOGIN && state.loggedIn) {
+      next(ROUTE_PATHS.MAIN);
+    } else {
+      next();
+    }
+  },
+});
 
 root.addEventListener("click", (e) => {
   if (e.target && e.target.nodeName == "A") {
     e.preventDefault();
-    navigateTo(e.target.href.replace(location.origin, ""));
+    router.push(e.target.href.replace(location.origin, ""));
   }
 });
 
 root.addEventListener("click", (e) => {
   if (e.target && e.target.id === "logout") {
     state.logout();
-    history.pushState(null, "", "/login");
-    render();
+    router.push(ROUTE_PATHS.LOGIN);
   }
 });
 root.addEventListener("submit", (e) => {
@@ -61,8 +36,7 @@ root.addEventListener("submit", (e) => {
     e.preventDefault();
     const username = e.target.querySelector("#username").value;
     state.setUser({ username, email: "", bio: "" });
-    history.pushState(null, "", "/");
-    render();
+    router.push(ROUTE_PATHS.MAIN);
   }
 
   if (e.target && e.target.id === "profile-form") {
@@ -71,8 +45,5 @@ root.addEventListener("submit", (e) => {
     const email = e.target.querySelector("#email").value;
     const bio = e.target.querySelector("#bio").value;
     state.setUser({ username, email, bio });
-    render();
   }
 });
-
-render();
