@@ -1,26 +1,26 @@
-(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))l(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const d of n.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&l(d)}).observe(document,{childList:!0,subtree:!0});function o(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerPolicy&&(n.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?n.credentials="include":s.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function l(s){if(s.ep)return;s.ep=!0;const n=o(s);fetch(s.href,n)}})();const i={_user:JSON.parse(localStorage.getItem("user"))||null,get loggedIn(){return!!this._user},get user(){return this._user},setUser(t){localStorage.setItem("user",JSON.stringify(t)),this._user=t},logout(){localStorage.removeItem("user"),this._user=null},init(){window.addEventListener("storage",()=>{this._user=JSON.parse(localStorage.getItem("user"))||null})}};i.init();function I({mount:t,routes:e,beforeEnter:o,getRoutePath:l,navigate:s,eventType:n}){const d=t instanceof HTMLElement?t:document.body.querySelector(t||"#root");function m(a=l()){return e.find(c=>c.path===a)||m("*")}function f(a){d.innerHTML=a()}function g(a=l()){const c=m(a);if(!o){f(c.component);return}o(c,u=>{u&&u!==a?s(u,!0):f(c.component)})}function x(a){s(a,!1)}function y(a){s(a,!0)}function w(a){window.addEventListener(a,()=>g()),g()}return w(n),{push:x,replace:y}}function O({mount:t,routes:e,beforeEnter:o}){return I({mount:t,routes:e,beforeEnter:o,getRoutePath:()=>location.pathname,navigate:(l,s)=>{history[s?"replaceState":"pushState"](null,"",l),window.dispatchEvent(new PopStateEvent("popstate"))},eventType:"popstate"})}const v=()=>{const t=i.loggedIn,e=l=>location.pathname===l?"text-blue-600 font-bold":"text-gray-600",o=t?`
-      <li><a href="${r.PROFILE}" class="${e(r.PROFILE)}">프로필</a></li>
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const n of e)if(n.type==="childList")for(const i of n.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&o(i)}).observe(document,{childList:!0,subtree:!0});function l(e){const n={};return e.integrity&&(n.integrity=e.integrity),e.referrerPolicy&&(n.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?n.credentials="include":e.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(e){if(e.ep)return;e.ep=!0;const n=l(e);fetch(e.href,n)}})();const u={_user:JSON.parse(localStorage.getItem("user"))||null,get loggedIn(){return!!this._user},get user(){return this._user},setUser(t){localStorage.setItem("user",JSON.stringify(t)),this._user=t},logout(){localStorage.removeItem("user"),this._user=null},init(){window.addEventListener("storage",()=>{this._user=JSON.parse(localStorage.getItem("user"))||null})}};u.init();function f({mount:t,routes:s,beforeEnter:l,getRoutePath:o,navigate:e,eventType:n}){const i=t instanceof HTMLElement?t:document.body.querySelector(t||"#root");function p(r=o()){return s.find(d=>d.path===r)||p("*")}function b(r){i.innerHTML=r()}function m(r=o()){const d=p(r);if(!l){b(d.component);return}l(d,c=>{c&&c!==r?e(c,!0):b(d.component)})}function v(r){e(r,!1)}function x(r){e(r,!0)}function y(r){window.addEventListener(r,()=>m()),m()}return y(n),{push:v,replace:x}}function N({mount:t,routes:s,beforeEnter:l}){return f({mount:t,routes:s,beforeEnter:l,getRoutePath:()=>location.pathname,navigate:(o,e)=>{history[e?"replaceState":"pushState"](null,"",o),window.dispatchEvent(new PopStateEvent("popstate"))},eventType:"popstate"})}function E({mount:t,routes:s,beforeEnter:l}){return f({mount:t,routes:s,beforeEnter:l,getRoutePath:()=>location.hash.replace(/^#\/?/,"/"),navigate:o=>{location.hash=`#${o.replace(/^\/?/,"")}`},eventType:"hashchange"})}const g=()=>{const t=u.loggedIn,s=o=>location.pathname===o?"text-blue-600 font-bold":"text-gray-600",l=t?`
+      <li><a href="${a.PROFILE}" class="${s(a.PROFILE)}">프로필</a></li>
       <li><a id="logout" href="#">로그아웃</a></li>
   `:`
-      <li><a href="${r.LOGIN}" class="${e(r.LOGIN)}">로그인</a></li>
+      <li><a href="${a.LOGIN}" class="${s(a.LOGIN)}">로그인</a></li>
     `;return`
-    <header class="bg-blue-600 text-white p-4 sticky top-0">
-      <h1 class="text-2xl font-bold">항해플러스</h1>
-    </header>
-    <nav class="bg-white shadow-md p-2 sticky top-14">
-      <ul class="flex justify-around">
-        <li><a href="${r.MAIN}" class="${e(r.MAIN)}">홈</a></li>
-        ${o}
-      </ul>
-    </nav>
-  `},h=()=>`
+  <header class="bg-blue-600 text-white p-4 sticky top-0">
+    <h1 class="text-2xl font-bold">항해플러스</h1>
+  </header>
+  <nav class="bg-white shadow-md p-2 sticky top-14">
+    <ul class="flex justify-around">
+      <li><a href="${a.MAIN}" class="${s(a.MAIN)}">홈</a></li>
+      ${l}
+    </ul>
+  </nav>
+`},h=()=>`
   <footer class="bg-gray-200 p-4 text-center">
     <p>&copy; 2024 항해플러스. All rights reserved.</p>
   </footer>
-`,L=()=>`
+`,w=()=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-    ${v()}
+    ${g()}
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
           <textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -113,7 +113,7 @@
     ${h()}
     </div>
   </div>
-`,N=()=>`
+`,O=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -135,10 +135,10 @@
       </div>
     </div>
   </main>
-`,S=()=>{const t=i.user;return`
+`,I=()=>{const t=u.user;return`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-    ${v()}
+    ${g()}
       <main class="p-4">
         <div class="bg-white p-8 rounded-lg shadow-md">
           <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -199,7 +199,7 @@
       ${h()}
     </div>
   </div>
-`},E=()=>`
+`},L=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full text-center" style="max-width: 480px">
       <h1 class="text-2xl font-bold text-blue-600 mb-4">항해플러스</h1>
@@ -213,4 +213,4 @@
       </a>
     </div>
   </main>
-`,$="/front_5th_chapter1-1";function R(t="/",e={}){return t=t.replace(/\/+$/,""),Object.fromEntries(Object.entries(e).map(([o,l])=>l==="*"?[o,l]:[o,`${t}/${l.replace(/^\/+/,"")}`]))}const r=R($,{MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"}),A=[{path:r.MAIN,component:L},{path:r.LOGIN,component:N},{path:r.PROFILE,component:S,requiresAuth:!0},{path:r.ERROR,component:E}],b=document.body.querySelector("#root"),p=O({mount:b,routes:A,beforeEnter:(t,e)=>{t.requiresAuth&&!i.loggedIn?e(r.LOGIN):t.path===r.LOGIN&&i.loggedIn?e(r.MAIN):e()}});b.addEventListener("click",t=>{var e,o;((e=t.target)==null?void 0:e.id)==="logout"&&(i.logout(),p.push(r.LOGIN)),((o=t.target)==null?void 0:o.nodeName)==="A"&&(t.preventDefault(),p.push(t.target.href.replace(location.origin,"")))});b.addEventListener("submit",t=>{if(t.target&&t.target.id==="login-form"){t.preventDefault();const e=t.target.querySelector("#username").value;i.setUser({username:e,email:"",bio:""}),p.push(r.MAIN)}if(t.target&&t.target.id==="profile-form"){t.preventDefault();const e=t.target.querySelector("#username").value,o=t.target.querySelector("#email").value,l=t.target.querySelector("#bio").value;i.setUser({username:e,email:o,bio:l})}});
+`,R="/front_5th_chapter1-1";function $(t="/",s={}){return t=t.replace(/\/+$/,""),Object.fromEntries(Object.entries(s).map(([l,o])=>o==="*"?[l,o]:[l,`${t}/${o.replace(/^\/+/,"")}`]))}const a=$(R,{MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"}),S=[{path:a.MAIN,component:w},{path:a.LOGIN,component:O},{path:a.PROFILE,component:I,requiresAuth:!0},{path:a.ERROR,component:L}];export{a as R,E as a,N as c,S as r,u as s};
