@@ -113,7 +113,7 @@
     ${h()}
     </div>
   </div>
-`,O=()=>`
+`,I=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -135,7 +135,7 @@
       </div>
     </div>
   </main>
-`,I=()=>{const t=u.user;return`
+`,O=()=>{const t=u.user;return`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
     ${g()}
@@ -208,9 +208,9 @@
       <p class="text-gray-600 mb-8">
         요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
       </p>
-      <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
+      <a href="${a.MAIN}" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
         홈으로 돌아가기
       </a>
     </div>
   </main>
-`,R="/front_5th_chapter1-1";function $(t="/",s={}){return t=t.replace(/\/+$/,""),Object.fromEntries(Object.entries(s).map(([l,o])=>o==="*"?[l,o]:[l,`${t}/${o.replace(/^\/+/,"")}`]))}const a=$(R,{MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"}),S=[{path:a.MAIN,component:w},{path:a.LOGIN,component:O},{path:a.PROFILE,component:I,requiresAuth:!0},{path:a.ERROR,component:L}];export{a as R,E as a,N as c,S as r,u as s};
+`,R="/front_5th_chapter1-1";function $(t="/",s={}){return t=t.replace(/\/+$/,""),Object.fromEntries(Object.entries(s).map(([l,o])=>o==="*"?[l,o]:[l,`${t}/${o.replace(/^\/+/,"")}`]))}const a=$(R,{MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"}),S=[{path:a.MAIN,component:w},{path:a.LOGIN,component:I},{path:a.PROFILE,component:O,requiresAuth:!0},{path:a.ERROR,component:L}];export{a as R,E as a,N as c,S as r,u as s};
