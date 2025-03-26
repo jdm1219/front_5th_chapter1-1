@@ -19,26 +19,26 @@ const router = createHashRouter({
 });
 
 root.addEventListener("click", (e) => {
-  if (e.target && e.target.nodeName == "A") {
+  if (e.target?.id === "logout") {
+    e.preventDefault();
+    state.logout();
+    router.push(ROUTE_PATHS.LOGIN);
+    return;
+  }
+  if (e.target?.nodeName === "A") {
     e.preventDefault();
     router.push(e.target.href.replace(location.origin, ""));
   }
 });
 
-root.addEventListener("click", (e) => {
-  if (e.target && e.target.id === "logout") {
-    state.logout();
-    router.push(ROUTE_PATHS.LOGIN);
-  }
-});
 root.addEventListener("submit", (e) => {
   if (e.target && e.target.id === "login-form") {
     e.preventDefault();
     const username = e.target.querySelector("#username").value;
     state.setUser({ username, email: "", bio: "" });
     router.push(ROUTE_PATHS.MAIN);
+    return;
   }
-
   if (e.target && e.target.id === "profile-form") {
     e.preventDefault();
     const username = e.target.querySelector("#username").value;
