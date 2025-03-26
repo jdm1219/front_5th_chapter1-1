@@ -1,16 +1,16 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))l(t);new MutationObserver(t=>{for(const o of t)if(o.type==="childList")for(const i of o.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&l(i)}).observe(document,{childList:!0,subtree:!0});function a(t){const o={};return t.integrity&&(o.integrity=t.integrity),t.referrerPolicy&&(o.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?o.credentials="include":t.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function l(t){if(t.ep)return;t.ep=!0;const o=a(t);fetch(t.href,o)}})();const u={_user:JSON.parse(localStorage.getItem("user"))||null,get loggedIn(){return!!this._user},get user(){return this._user},setUser(e){localStorage.setItem("user",JSON.stringify(e)),this._user=e},logout(){localStorage.removeItem("user"),this._user=null},init(){window.addEventListener("storage",()=>{this._user=JSON.parse(localStorage.getItem("user"))||null})}};u.init();function f({mount:e,routes:s,beforeEnter:a,getRoutePath:l,navigate:t,eventType:o}){const i=e instanceof HTMLElement?e:document.body.querySelector(e||"#root");function p(n=l()){return s.find(d=>d.path===n)||p("*")}function b(n){i.innerHTML=n()}function m(n=l()){const d=p(n);if(!a){b(d.component);return}a(d,c=>{c&&c!==n?t(c,!0):b(d.component)})}function v(n){t(n,!1)}function x(n){t(n,!0)}function y(n){window.addEventListener(n,()=>m()),m()}return y(o),{push:v,replace:x}}function N({mount:e,routes:s,beforeEnter:a}){return f({mount:e,routes:s,beforeEnter:a,getRoutePath:()=>location.pathname,navigate:(l,t)=>{history[t?"replaceState":"pushState"](null,"",l),window.dispatchEvent(new PopStateEvent("popstate"))},eventType:"popstate"})}function R({mount:e,routes:s,beforeEnter:a}){return f({mount:e,routes:s,beforeEnter:a,getRoutePath:()=>location.hash.replace(/^#\/?/,"/"),navigate:l=>{console.log(l),location.hash=`#${l}`},eventType:"hashchange"})}const g=()=>{const e=u.loggedIn,s=l=>location.pathname===l?"text-blue-600 font-bold":"text-gray-600",a=e?`
-      <li><a href="${r.PROFILE}" class="${s(r.PROFILE)}">프로필</a></li>
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const n of e)if(n.type==="childList")for(const i of n.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&o(i)}).observe(document,{childList:!0,subtree:!0});function l(e){const n={};return e.integrity&&(n.integrity=e.integrity),e.referrerPolicy&&(n.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?n.credentials="include":e.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(e){if(e.ep)return;e.ep=!0;const n=l(e);fetch(e.href,n)}})();const u={_user:JSON.parse(localStorage.getItem("user"))||null,get loggedIn(){return!!this._user},get user(){return this._user},setUser(t){localStorage.setItem("user",JSON.stringify(t)),this._user=t},logout(){localStorage.removeItem("user"),this._user=null},init(){window.addEventListener("storage",()=>{this._user=JSON.parse(localStorage.getItem("user"))||null})}};u.init();function f({mount:t,routes:s,beforeEnter:l,getRoutePath:o,navigate:e,eventType:n}){const i=t instanceof HTMLElement?t:document.body.querySelector(t||"#root");function p(r=o()){return s.find(d=>d.path===r)||p("*")}function b(r){i.innerHTML=r()}function m(r=o()){const d=p(r);if(!l){b(d.component);return}l(d,c=>{c&&c!==r?e(c,!0):b(d.component)})}function v(r){e(r,!1)}function x(r){e(r,!0)}function y(r){window.addEventListener(r,()=>m()),m()}return y(n),{push:v,replace:x}}function N({mount:t,routes:s,beforeEnter:l}){return f({mount:t,routes:s,beforeEnter:l,getRoutePath:()=>location.pathname,navigate:(o,e)=>{history[e?"replaceState":"pushState"](null,"",o),window.dispatchEvent(new PopStateEvent("popstate"))},eventType:"popstate"})}function E({mount:t,routes:s,beforeEnter:l}){return f({mount:t,routes:s,beforeEnter:l,getRoutePath:()=>location.hash.replace(/^#\/?/,"/"),navigate:o=>{location.hash=`#${o}`},eventType:"hashchange"})}const g=()=>{const t=u.loggedIn,s=o=>location.pathname===o?"text-blue-600 font-bold":"text-gray-600",l=t?`
+      <li><a href="${a.PROFILE}" class="${s(a.PROFILE)}">프로필</a></li>
       <li><a id="logout" href="#">로그아웃</a></li>
   `:`
-      <li><a href="${r.LOGIN}" class="${s(r.LOGIN)}">로그인</a></li>
+      <li><a href="${a.LOGIN}" class="${s(a.LOGIN)}">로그인</a></li>
     `;return`
   <header class="bg-blue-600 text-white p-4 sticky top-0">
     <h1 class="text-2xl font-bold">항해플러스</h1>
   </header>
   <nav class="bg-white shadow-md p-2 sticky top-14">
     <ul class="flex justify-around">
-      <li><a href="${r.MAIN}" class="${s(r.MAIN)}">홈</a></li>
-      ${a}
+      <li><a href="${a.MAIN}" class="${s(a.MAIN)}">홈</a></li>
+      ${l}
     </ul>
   </nav>
 `},h=()=>`
@@ -135,7 +135,7 @@
       </div>
     </div>
   </main>
-`,O=()=>{const e=u.user;return`
+`,O=()=>{const t=u.user;return`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
     ${g()}
@@ -155,7 +155,7 @@
                 type="text"
                 id="username"
                 name="username"
-                value="${e.username}"
+                value="${t.username}"
                 class="w-full p-2 border rounded"
               />
             </div>
@@ -169,7 +169,7 @@
                 type="email"
                 id="email"
                 name="email"
-                value="${e.email}"
+                value="${t.email}"
                 class="w-full p-2 border rounded"
               />
             </div>
@@ -184,7 +184,7 @@
                 name="bio"
                 rows="4"
                 class="w-full p-2 border rounded"
-              >${e.bio}</textarea
+              >${t.bio}</textarea
               >
             </div>
             <button
@@ -208,9 +208,9 @@
       <p class="text-gray-600 mb-8">
         요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
       </p>
-      <a href="${r.MAIN}" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
+      <a href="${a.MAIN}" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
         홈으로 돌아가기
       </a>
     </div>
   </main>
-`,r={MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"},$=[{path:r.MAIN,component:w},{path:r.LOGIN,component:I},{path:r.PROFILE,component:O,requiresAuth:!0},{path:r.ERROR,component:L}];export{r as R,R as a,N as c,$ as r,u as s};
+`,R="/front_5th_chapter1-1";function $(t="/",s={}){return t=t.replace(/\/+$/,""),Object.fromEntries(Object.entries(s).map(([l,o])=>o==="*"?[l,o]:[l,`${t}/${o.replace(/^\/+/,"")}`]))}const a=$(R,{MAIN:"/",LOGIN:"/login",PROFILE:"/profile",ERROR:"*"}),S=[{path:a.MAIN,component:w},{path:a.LOGIN,component:I},{path:a.PROFILE,component:O,requiresAuth:!0},{path:a.ERROR,component:L}];export{a as R,E as a,N as c,S as r,u as s};
