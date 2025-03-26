@@ -87,7 +87,7 @@ export function createHashRouter({ mount, routes, beforeEnter }) {
     mount,
     routes,
     beforeEnter,
-    getRoutePath: () => location.hash.replace(/^#\/?/, "/"),
+    getRoutePath: () => location.hash.replace(/^#\/?/, "/") || "/",
     navigate: (routePath) => {
       location.hash = `#${routePath}`;
     },
